@@ -1,0 +1,20 @@
+###
+POST http://localhost:3001/api/
+Content-Type: application/json
+
+{
+  "titi": "Thomas Laforge"
+}
+
+###
+GET http://localhost:3001/api/toto/1
+
+###
+POST http://localhost:3001/api/toto
+Content-Type: application/json
+
+{
+  "title": "Mon premier post",
+  "content": "Ceci est le contenu de mon premier post",
+  "email": "thomas.laforge@toto.fr"
+}

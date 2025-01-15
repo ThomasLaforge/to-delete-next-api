@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Computer {
+  id    Int     @id @default(autoincrement())
+  name  String
+  cpuId Int
+  cpu   Processor @relation(fields: [cpuId], references: [id])
+  motherboardId Int
+  motherboard Motherboard @relation(fields: [motherboardId], references: [id])
+  rams  Ram[]
+}
+
+model Ram {
+  id        Int     @id @default(autoincrement())
+  brand     String
+  name      String
+  capacity  Int
+
+  computers Computer[]
+}
+
+model Motherboard {
+  id        Int     @id @default(autoincrement())
+  brand     String
+  name      String
+
+  computers Computer[]
+}
+
+model Processor {
+  id        Int     @id @default(autoincrement())
+  brand     String
+  name      String
+  cores     Int
+
+  computers Computer[]
+}
