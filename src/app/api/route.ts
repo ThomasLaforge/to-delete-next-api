@@ -5,15 +5,17 @@ export const GET = () => {
   return NextResponse.json({ message: "Bonjour Thomas" });
 }
 
-export const POST = async (request: NextRequest) => {
-  const { titi } = await request.json()
+type Params = {
+  params: Promise<{
+    id: string;
+  }>
+}
 
-  const newUser = await prisma.user.create({
-    data: {
-      email: "thomas.laforge@toto.fr",
-      name: titi
-    }
-  });
-
-  return NextResponse.json({ message: `Hello, ${newUser.id} !` });
+export const POST = async (request: NextRequest, {
+  params
+}: Params) => {
+  const { id } = await params;
+  console.log(id);
+  const computers = await prisma.computer.findMany()
+  return NextResponse.json({ message: `Hello, ${computers.length} !` });
 }
